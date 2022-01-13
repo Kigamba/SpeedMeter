@@ -33,4 +33,8 @@
     <string name="github" translatable="false">https://github.com/flyingrub/SpeedMeter</string>
     <string name="license_type" translatable="false">GNU General Public License 2</string>
     <string name="doante_url" translatable="false">https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=6DE8SFMJKRVK2</string>
+    <string name="start_speaking">Start Speaking</string>
+    <string name="stop_speaking">Stop Speaking</string>
+    <string name="riding_aid_active">Riding Aid Active</string>
+    <string name="mirror_checking_aid_running">Mirror-checking aid running</string>
 </resources>

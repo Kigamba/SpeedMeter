@@ -3,4 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item android:id="@+id/action_settings" android:title="@string/settings"
         android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/action_start_speaking" android:title="@string/start_speaking"
+        android:orderInCategory="200" app:showAsAction="never" />
+
+    <item android:id="@+id/action_stop_speaking" android:title="@string/stop_speaking"
+        android:orderInCategory="300" app:showAsAction="never" />
 </menu>
