@@ -46,6 +46,7 @@ public class Speaker extends UtteranceProgressListener {
     }
 
     public void speak(String text) {
+        speakingQueue.clear();
         speakingQueue.add(text);
         processQueue();
     }
