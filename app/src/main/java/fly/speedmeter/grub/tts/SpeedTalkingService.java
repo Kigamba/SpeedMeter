@@ -8,12 +8,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -32,7 +34,6 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
 
     private int NOTIFY_ID = 1337;
     private int FOREGROUND_ID = 1338;
-    private int seconds = 15;
     private Speaker speaker = null;
 
     private BroadcastReceiver speakSpeedRequestReceiver;
@@ -42,9 +43,15 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
     private LocationManager mLocationManager;
     private double lastSpeed = 0d;
     private double lastSpeakSpeed = 0d;
+    private int speedSpeakSpeedInterval = 7;
+    private int speedSpeakTimeInterval = 10;
+
+    private SharedPreferences sharedPreferences;
 
     public SpeedTalkingService() {
         super("SpeedTalkingService");
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
     @Override
@@ -58,6 +65,9 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
         if (speaker == null) {
             speaker = new Speaker(this);
         }
+
+        speedSpeakSpeedInterval = Integer.parseInt(sharedPreferences.getString("speed_speaking_speed_interval", "7"));
+        speedSpeakTimeInterval = Integer.parseInt(sharedPreferences.getString("speed_speaking_time_interval", "10"));
 
         startForeground(
                 FOREGROUND_ID,
@@ -104,13 +114,13 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(speakSpeedRequestReceiver, new IntentFilter("SPEED-SPEAK"));
 
-        /*new Thread(new Runnable() {
+        new Thread(new Runnable() {
 
             @Override
             public void run() {
                 while (true) {
                     try {
-                        Thread.sleep(seconds * 1000L);
+                        Thread.sleep(speedSpeakTimeInterval * 1000L);
 
                         // Request for the latest speed
                         speaker.speak(String.valueOf((int) lastSpeed));
@@ -120,7 +130,7 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
                     }
                 }
             }
-        }).start();*/
+        }).start();
 
         return Service.START_STICKY;
     }
@@ -155,8 +165,8 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
 
             NotificationCompat.Builder b = new NotificationCompat.Builder(this);
             b.setOngoing(true)
-                    .setContentTitle(getString(fly.speedmeter.grub.R.string.riding_aid_active))
-                    .setContentText(getString(fly.speedmeter.grub.R.string.mirror_checking_aid_running))
+                    .setContentTitle(getString(fly.speedmeter.grub.R.string.speed_talking_active))
+                    .setContentText(getString(fly.speedmeter.grub.R.string.speed_will_be_uttered_every))
                     .setSmallIcon(R.drawable.stat_sys_download);
             return b.build();
         } else {
@@ -164,8 +174,8 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
 
             NotificationCompat.Builder b = new NotificationCompat.Builder(this);
             b.setOngoing(true)
-                    .setContentTitle(getString(fly.speedmeter.grub.R.string.riding_aid_active))
-                    .setContentText(getString(fly.speedmeter.grub.R.string.mirror_checking_aid_running))
+                    .setContentTitle(getString(fly.speedmeter.grub.R.string.speed_talking_active))
+                    .setContentText(getString(fly.speedmeter.grub.R.string.speed_will_be_uttered_every))
                     .setSmallIcon(R.drawable.stat_sys_download);
             return b.build();
         }
@@ -213,7 +223,7 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
                 /*if (lastSpeed == 0) {
                     lastSpeed = currentSpeed;
                 } else {*/
-            if (Math.abs(lastSpeakSpeed - currentSpeed) >= 3) {//10) {
+            if (Math.abs(lastSpeakSpeed - currentSpeed) >= speedSpeakSpeedInterval) {//10) {
                 lastSpeakSpeed = currentSpeed;
                 speaker.speak(String.valueOf((int) currentSpeed));
             }

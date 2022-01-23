@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.gc.materialdesign.widgets.Dialog;
@@ -274,7 +275,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
             startActivity(intent);
             return true;
         } else if (id == R.id.action_start_speaking) {
-            startSpeedSpeakingService();
+            if (sharedPreferences.getBoolean("enable_speed_speaking", true)) {
+                startSpeedSpeakingService();
+            } else {
+                Toast.makeText(this, R.string.speed_speaking_not_enabled_please_enable_it, Toast.LENGTH_LONG)
+                        .show();
+            }
         } else if (id == R.id.action_stop_speaking) {
             stopSpeedSpeakingService();
         }

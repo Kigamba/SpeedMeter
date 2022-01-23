@@ -37,4 +37,11 @@
     <string name="stop_speaking">Stop Speaking</string>
     <string name="riding_aid_active">Riding Aid Active</string>
     <string name="mirror_checking_aid_running">Mirror-checking aid running</string>
+    <string name="enable_speed_speaking">Enable speed speaking in the background</string>
+    <string name="utter_speed_difference">Utter Speed After Speed X Increase/Decrease</string>
+    <string name="speed_speaking_time_interval_summary">Use 0 to disable this</string>
+    <string name="speed_speaking_time_interval_title">Utter speed every X seconds</string>
+    <string name="speed_talking_active">Speed Talking active</string>
+    <string name="speed_will_be_uttered_every">Speed will be uttered every km/h or X seconds</string>
+    <string name="speed_speaking_not_enabled_please_enable_it">Speed speaking is not enabled! Please enable it</string>
 </resources>
