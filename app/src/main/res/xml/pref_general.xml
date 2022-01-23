@@ -15,6 +15,25 @@
         android:summary="@string/pref_miles_per_hour_summary"
     />
 
+        <SwitchPreference
+            android:key="enable_speed_speaking"
+            android:title="@string/enable_speed_speaking"/>
+
+        <EditTextPreference
+            android:key="speed_speaking_speed_interval"
+            android:defaultValue="7"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:title="@string/utter_speed_difference"/>
+
+        <EditTextPreference
+            android:key="speed_speaking_time_interval"
+            android:defaultValue="10"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:title="@string/speed_speaking_time_interval_title"
+            android:summary="@string/speed_speaking_time_interval_summary"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
