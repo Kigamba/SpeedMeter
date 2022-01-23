@@ -11,6 +11,8 @@ import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import static android.speech.tts.TextToSpeech.QUEUE_ADD;
+import static android.speech.tts.TextToSpeech.QUEUE_FLUSH;
+
 import android.speech.tts.UtteranceProgressListener;
 
 import java.util.ArrayList;
@@ -58,9 +60,9 @@ public class Speaker extends UtteranceProgressListener {
             while (queueIterator.hasNext()) {
                 String speechItem = queueIterator.next();
                 if (Build.VERSION.SDK_INT >= 21) {
-                    textToSpeech.speak(speechItem, QUEUE_ADD, null, speechItem);
+                    textToSpeech.speak(speechItem, QUEUE_FLUSH, null, speechItem);
                 } else {
-                    textToSpeech.speak(speechItem, QUEUE_ADD, null);
+                    textToSpeech.speak(speechItem, QUEUE_FLUSH, null);
                 }
 
                 queueIterator.remove();
