@@ -3,10 +3,12 @@ package fly.speedmeter.grub;
 import android.content.BroadcastReceiver;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceGroup;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
@@ -45,10 +47,15 @@ public class Settings extends ActionBarActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragment {
+
+        private SharedPreferences sharedPreferences;
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
+
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
             for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); ++i) {
                 Preference preference = getPreferenceScreen().getPreference(i);
@@ -66,6 +73,13 @@ public class Settings extends ActionBarActivity {
         private void updatePreference(Preference preference) {
             if (preference.getKey().equals("version")) {
                 preference.setSummary(String.format("v%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
+            } else {
+                CharSequence previousSummary = preference.getSummary();
+
+                if (preference instanceof EditTextPreference) {
+                    String value = sharedPreferences.getString(preference.getKey(), null);
+                    preference.setSummary((previousSummary == null ? "" : previousSummary + "\n\n") + "Current value: " + (value == null ? "null" : value));
+                }
             }
         }
 

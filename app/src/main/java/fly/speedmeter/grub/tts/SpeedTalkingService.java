@@ -50,8 +50,6 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
 
     public SpeedTalkingService() {
         super("SpeedTalkingService");
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
     @Override
@@ -66,6 +64,7 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
             speaker = new Speaker(this);
         }
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         speedSpeakSpeedInterval = Integer.parseInt(sharedPreferences.getString("speed_speaking_speed_interval", "7"));
         speedSpeakTimeInterval = Integer.parseInt(sharedPreferences.getString("speed_speaking_time_interval", "10"));
 
