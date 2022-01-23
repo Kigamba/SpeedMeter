@@ -166,7 +166,7 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
             NotificationCompat.Builder b = new NotificationCompat.Builder(this);
             b.setOngoing(true)
                     .setContentTitle(getString(fly.speedmeter.grub.R.string.speed_talking_active))
-                    .setContentText(getString(fly.speedmeter.grub.R.string.speed_will_be_uttered_every))
+                    .setContentText(String.format(getString(fly.speedmeter.grub.R.string.speed_will_be_uttered_every), speedSpeakSpeedInterval, speedSpeakTimeInterval))
                     .setSmallIcon(R.drawable.stat_sys_download);
             return b.build();
         } else {
@@ -175,7 +175,7 @@ public class SpeedTalkingService extends IntentService implements GpsStatus.List
             NotificationCompat.Builder b = new NotificationCompat.Builder(this);
             b.setOngoing(true)
                     .setContentTitle(getString(fly.speedmeter.grub.R.string.speed_talking_active))
-                    .setContentText(getString(fly.speedmeter.grub.R.string.speed_will_be_uttered_every))
+                    .setContentText(String.format(getString(fly.speedmeter.grub.R.string.speed_will_be_uttered_every), speedSpeakSpeedInterval, speedSpeakTimeInterval))
                     .setSmallIcon(R.drawable.stat_sys_download);
             return b.build();
         }

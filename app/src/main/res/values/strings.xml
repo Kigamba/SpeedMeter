@@ -42,6 +42,6 @@
     <string name="speed_speaking_time_interval_summary">Use 0 to disable this</string>
     <string name="speed_speaking_time_interval_title">Utter speed every X seconds</string>
     <string name="speed_talking_active">Speed Talking active</string>
-    <string name="speed_will_be_uttered_every">Speed will be uttered every km/h or X seconds</string>
+    <string name="speed_will_be_uttered_every">Speed will be uttered every %1$d km/h or %2$d seconds</string>
     <string name="speed_speaking_not_enabled_please_enable_it">Speed speaking is not enabled! Please enable it</string>
 </resources>
